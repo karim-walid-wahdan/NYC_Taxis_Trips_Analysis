@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  database:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=green_taxi_8_2019_postgres
+    volumes:
+      - database_volume:/var/lib/postgresql/data/:rw
+      - m2_queries:/var/lib
+    ports:
+      - "5432:5432"
+  main:
+    build: ./pipeline
+    image: main:main
+    depends_on:
+      - database
+    restart: on-failure
+    volumes:
+      - "./pipeline/src:/app/src"
+      - "./pipeline/data:/app/data"
+volumes:
+  database_volume:
+  pgadmin_data:
+  m2_queries:

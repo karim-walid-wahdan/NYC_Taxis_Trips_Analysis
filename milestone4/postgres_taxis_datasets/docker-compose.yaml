@@ -1,0 +1,19 @@
+services:
+  pgdatabase:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=M4_green_taxis_8_2019_DB
+    volumes:
+      - "M4_green_taxis_8_2019_Vol:/var/lib/postgresql/data:rw"
+    ports:
+      - "5432:5432"
+    networks:
+      - airflow
+volumes:
+  M4_green_taxis_8_2019_Vol:
+networks:
+  airflow:
+    external:
+      name: airflow_milestone4_default
